@@ -10,28 +10,20 @@ class Menu extends StatefulWidget {
 }
 
 class _MenuState extends State<Menu> {
-
-  bool loading = true, showHistory = false;
-  late String system, user, dateDownload;
-  int historyCount = 0;
-  String history = '';
-
+  bool loading = true;
 
   @override
   void initState() {
-    Timer(  Duration(seconds: 3), () => { precarga() } );
     super.initState();
+    Timer(Duration(seconds: 3), () => precarga());
   }
 
   Future<void> precarga() async {
-    loading=false;
-    setState(() {});
-  }
-
-  @override
-  void dispose() {
-
-    super.dispose();
+    // Simulación de carga de datos
+    await Future.delayed(Duration(seconds: 1)); 
+    setState(() {
+      loading = false;
+    });
   }
 
   @override
@@ -46,19 +38,18 @@ class _MenuState extends State<Menu> {
           },
         ),
       ),
-      drawer: Menu(),
-      body: loading == true
+      body: loading
           ? const Center(child: CircularProgressIndicator())
           : ListView(
               padding: const EdgeInsets.all(12.0),
               children: [
-              Container(
+                Container(
                   alignment: Alignment.centerLeft,
                   color: Colors.lightGreen,
                   child: Padding(
                     padding: const EdgeInsets.all(6.0),
                     child: Text(
-                      "222",//S.of(context).L0050,
+                      "Bienvenido",
                       style: const TextStyle(
                           color: Colors.white,
                           fontSize: 16,
@@ -66,21 +57,20 @@ class _MenuState extends State<Menu> {
                     ),
                   ),
                 ),
-
                 SizedBox(height: 20),
                 ButtonPill(
                   text: 'Desarrollo',
-                  onPressed: () async {
-                    //realizar la logica de la pantalla 
-                    //ejemplo de llamar un widget
-                    //Navigator.of(context).pushNamed('/');
-
-                    //cuando cree el widget nuevo tendran que realizar la clase de tabla 
-                   // https://api.flutter.dev/flutter/widgets/Table-class.html
+                  onPressed: () {
                   },
                 ),
-
-
+                SizedBox(height: 10),
+                // Botón para Búsqueda de Terrenos
+                ButtonPill(
+                  text: 'Búsqueda de Terrenos',
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/terrenos');
+                  },
+                ),
               ],
             ),
     );

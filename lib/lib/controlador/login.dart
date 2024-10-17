@@ -5,7 +5,6 @@ import 'package:flutter_simpleagri_prueba/lib/controlador/shared_preferences.dar
 import 'package:flutter_simpleagri_prueba/lib/widgets/Dialogo.dart';
 import 'package:flutter_simpleagri_prueba/lib/widgets/button_pill.dart';
 import 'package:intl/intl.dart';
-import 'package:flutter/material.dart';
 
 class ControladorLogin {
 
@@ -25,6 +24,7 @@ class ControladorLogin {
               String sess = value;
               sess = sess!.replaceAll('; path', '');
               Preferences.prefs_authentication = sess;
+              print("TOKEEEN: $sess");
             }
             if (key.indexOf('user') > -1) {
               String userDb = value.replaceAll('; path', '');
@@ -37,13 +37,9 @@ class ControladorLogin {
         }
       });
       return true;
-
     } catch (exception) {
       Dialogo().showAlert( context, exception.toString().substring(11));
       return false;
     }
-
   }
-
-
 }
